@@ -1,4 +1,5 @@
 import Banner from "./components/banner"
+import "./App.css"
 
 function App() {
   
