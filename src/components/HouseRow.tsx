@@ -1,14 +1,7 @@
-import React from "react";
-import Color from "../helpers/Color";
-import currencyFormatter from "../helpers/CurrencyFormatter";
-import { useState } from "react";
-
-type House = {
-  id: number;
-  address: string;
-  country: string;
-  price: number;
-};
+import React, { useState } from "react";
+import Color from "@/types/Color";
+import currencyFormatter from "@/helpers/CurrencyFormatter";
+import House from "@/types/House";
 
 const HouseRow = ({ house }: { house: House }) => {
 

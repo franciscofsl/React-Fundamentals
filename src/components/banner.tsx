@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png';
+import logo from '@/assets/logo.png';
 import styles from './banner.module.css';
 import type { PropsWithChildren } from 'react';
 
