@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import HouseRow from "@/components/HouseRow";
 import House from "@/types/House";
-import housesData from "../data/houses.json";
 
 interface HouseData {
   id: number;
@@ -10,8 +9,16 @@ interface HouseData {
   price: number;
 }
 
+const fetchHouses = fetch("/src/data/houses.json")
+  .then((response) => response.json())
+  .then((data: HouseData[]) =>
+    data.map((h) => new House(h.id, h.address, h.country, h.price))
+  );
+
 const HouseList = () => {
-  const [houses, setHouses] = useState<House[]>([]);
+  const housesResult = use(fetchHouses);
+
+  const [houses, setHouses] = useState<House[]>(housesResult);
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
