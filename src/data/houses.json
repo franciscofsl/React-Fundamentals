@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "address": "123 Main St",
+    "country": "USA",
+    "price": 300000
+  },
+  {
+    "id": 2,
+    "address": "456 Elm St",
+    "country": "Canada",
+    "price": 400000
+  },
+  {
+    "id": 3,
+    "address": "789 Oak Ave",
+    "country": "Mexico",
+    "price": 250000
+  },
+  {
+    "id": 4,
+    "address": "321 Pine Blvd",
+    "country": "Spain",
+    "price": 350000
+  }
+]
