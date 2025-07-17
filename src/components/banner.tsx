@@ -6,14 +6,13 @@ const subtitleStyle = {
   fontSize : "x-large",
   color: "coral"
 }
-
-const Banner = (props: { headerText: string }) => {
+const Banner = ({children}) => {
   return (
     <header className="row mb-4">
       <div className="col-5">
         <img src={logo} className={styles.logo} alt="Logo"></img>
       </div>
-      <div className="col-7 col-5" style={subtitleStyle}>{props.headerText}</div>
+      <div className="col-7 col-5" style={subtitleStyle}>{children}</div>
     </header>
   );
 };
