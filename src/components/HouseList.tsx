@@ -1,6 +1,7 @@
+import { useState } from "react";
 import HouseRow from "./HouseRow";
 
-const houses = [
+const housesArray = [
   {
     id: 1,
     address: "123 Main St",
@@ -16,6 +17,8 @@ const houses = [
 ];
 
 const HouseList = () => {
+  const [houses, setHouses] = useState(housesArray);
+
   return (
     // <> and </> are React fragments, used to group multiple elements without adding extra nodes to the DOM
     <>
