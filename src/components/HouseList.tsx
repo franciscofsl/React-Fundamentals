@@ -30,6 +30,7 @@ const HouseList = () => {
             <th>Address</th>
             <th>Country</th>
             <th>Asking Price</th>
+            <th>Click Count</th>
           </tr>
         </thead>
         <tbody>
