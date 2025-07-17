@@ -1,4 +1,4 @@
-import { use, useEffect, useState, useMemo } from "react";
+import { use, useEffect, useState, useMemo, useRef } from "react";
 import HouseRow from "@/components/HouseRow";
 import House from "@/types/House";
 
@@ -21,6 +21,7 @@ const HouseList = () => {
 
   const [houses, setHouses] = useState<House[]>([]);
   const [counter, setCounter] = useState(0);
+  const refCounter = useRef(0);
 
   useEffect(() => {
     const fetchHouses = async () => {
@@ -36,6 +37,7 @@ const HouseList = () => {
     };
 
     fetchHouses();
+    refCounter.current++; // Increment refCounter to track the number of times the effect runs
   }, []); // Empty array: the effect is executed only once when mounting the component, avoiding repeated API calls.
 
   // Example with useMemo: Memoize average price (expensive calculation)
@@ -70,6 +72,8 @@ const HouseList = () => {
       <button className="btn btn-primary" onClick={AddHouse}>
         Add
       </button>
+      <a>Called {refCounter.current} times (2 times by StrictMode applied)</a>
+     
       <table className="table table-hover">
         <thead>
           <tr>
