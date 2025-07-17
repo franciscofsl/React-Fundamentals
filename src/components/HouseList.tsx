@@ -33,6 +33,7 @@ const HouseList = () => {
         <tbody>
             {
                 houses.map((house) => (
+                    // Using the key prop to help React identify which items have changed, are added, or are removed
                   <tr key={house.id}>
                     <td>{house.address}</td>
                     <td>{house.country}</td>
