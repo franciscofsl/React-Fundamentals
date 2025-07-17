@@ -1,3 +1,4 @@
+import React from "react";
 import Color from "../helpers/Color";
 import currencyFormatter from "../helpers/CurrencyFormatter";
 import { useState } from "react";
@@ -30,4 +31,7 @@ const HouseRow = ({ house }: { house: House }) => {
   );
 };
 
+const HouseRowMem = React.memo(HouseRow);
+
 export default HouseRow;
+export { HouseRowMem};
