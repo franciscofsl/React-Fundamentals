@@ -1,5 +1,6 @@
 import Banner from "./components/banner"
 import "./App.css"
+import HouseList from './components/HouseList';
 
 function App() {
   
@@ -9,6 +10,7 @@ function App() {
       <div>Providing houses all over the world</div>
     </Banner>
     <Banner />  
+    <HouseList />
     </>
   )
 }
