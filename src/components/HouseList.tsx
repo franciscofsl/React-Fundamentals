@@ -1,3 +1,5 @@
+import HouseRow from "./HouseRow";
+
 const houses = [
   {
     id: 1,
@@ -31,16 +33,10 @@ const HouseList = () => {
           </tr>
         </thead>
         <tbody>
-            {
-                houses.map((house) => (
-                    // Using the key prop to help React identify which items have changed, are added, or are removed
-                  <tr key={house.id}>
-                    <td>{house.address}</td>
-                    <td>{house.country}</td>
-                    <td>${house.price.toLocaleString()}</td>
-                  </tr>
-                ))
-            }
+          {houses.map((h) => (
+            // Using the key prop to help React identify which items have changed, are added, or are removed
+            <HouseRow key={h.id} house={h} />
+          ))}
         </tbody>
       </table>
     </>
