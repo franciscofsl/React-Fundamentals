@@ -1,12 +1,13 @@
 import logo from '../assets/logo.png';
 import styles from './banner.module.css';
+import type { PropsWithChildren } from 'react';
 
 const subtitleStyle = {
   fontStyle : "italic",
   fontSize : "x-large",
   color: "coral"
 }
-const Banner = ({children}) => {
+const Banner = ({children} : PropsWithChildren) => {
   return (
     <header className="row mb-4">
       <div className="col-5">
