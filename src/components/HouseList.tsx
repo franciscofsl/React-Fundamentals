@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useMemo } from "react";
 import HouseRow from "@/components/HouseRow";
 import House from "@/types/House";
 
@@ -9,16 +9,17 @@ interface HouseData {
   price: number;
 }
 
+/*
 const fetchHouses = fetch("/src/data/houses.json")
   .then((response) => response.json())
   .then((data: HouseData[]) =>
     data.map((h) => new House(h.id, h.address, h.country, h.price))
-  );
+  );*/
 
 const HouseList = () => {
-  const housesResult = use(fetchHouses);
+  // const housesResult = use(fetchHouses);
 
-  const [houses, setHouses] = useState<House[]>(housesResult);
+  const [houses, setHouses] = useState<House[]>([]);
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -37,6 +38,15 @@ const HouseList = () => {
     fetchHouses();
   }, []); // Empty array: the effect is executed only once when mounting the component, avoiding repeated API calls.
 
+  // Example with useMemo: Memoize average price (expensive calculation)
+  const averagePrice = useMemo(() => {
+    console.log("Calculating average price..."); // To see when it executes
+    if (houses.length === 0) return 0;
+
+    const total = houses.reduce((sum, house) => sum + house.price, 0);
+    return Math.round(total / houses.length);
+  }, [houses]); // Recalculated only when the houses array changes
+
   const AddHouse = () => {
     setHouses([...houses, House.Random(houses.length + 1)]);
     // current => current + 1, ensures that the most current value is used
@@ -51,6 +61,12 @@ const HouseList = () => {
           Houses currently on the market
         </h5>
       </div>
+      
+      {/* Show memoized average price */}
+      <div className="alert alert-info mb-3">
+        <strong>Average Price:</strong> ${averagePrice.toLocaleString()}
+      </div>
+      
       <button className="btn btn-primary" onClick={AddHouse}>
         Add
       </button>
