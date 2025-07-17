@@ -7,7 +7,7 @@ const subtitleStyle = {
   color: "coral"
 }
 
-const Banner = (props: { headerText }) => {
+const Banner = (props: { headerText: string }) => {
   return (
     <header className="row mb-4">
       <div className="col-5">
@@ -19,3 +19,16 @@ const Banner = (props: { headerText }) => {
 };
 
 export default Banner;
+
+/*
+
+In javascript, we can use propTypes to validate the props passed to a component.
+by default typescript already gives types, these are used.
+
+import propTypes from 'prop-types';
+
+Banner.propTypes = {
+  headerText: propTypes.string.isRequired
+};
+
+*/
