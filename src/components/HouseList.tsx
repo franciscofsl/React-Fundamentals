@@ -1,13 +1,7 @@
-import { use, useEffect, useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 import HouseRow from "@/components/HouseRow";
 import House from "@/types/House";
-
-interface HouseData {
-  id: number;
-  address: string;
-  country: string;
-  price: number;
-}
+import useHouses from "../hooks/useHouses";
 
 /*
 const fetchHouses = fetch("/src/data/houses.json")
@@ -22,28 +16,12 @@ const HouseList = ({
   selectHouse: (house: House) => void;
 }) => {
   // const housesResult = use(fetchHouses);
-
-  const [houses, setHouses] = useState<House[]>([]);
+  const {houses, setHouses} = useHouses(); // Custom hook to fetch houses
+ 
   const [counter, setCounter] = useState(0);
   const refCounter = useRef(0);
 
-  useEffect(() => {
-    const fetchHouses = async () => {
-      const response = await fetch("/src/data/houses.json");
-      const housesData: HouseData[] = await response.json();
-
-      const houses = housesData.map(
-        (h: HouseData) => new House(h.id, h.address, h.country, h.price)
-      );
-
-      setHouses(houses);
-      setCounter(houses.length);
-    };
-
-    fetchHouses();
-    refCounter.current++; // Increment refCounter to track the number of times the effect runs
-  }, []); // Empty array: the effect is executed only once when mounting the component, avoiding repeated API calls.
-
+  
   // Example with useMemo: Memoize average price (expensive calculation)
   const averagePrice = useMemo(() => {
     console.log("Calculating average price..."); // To see when it executes
