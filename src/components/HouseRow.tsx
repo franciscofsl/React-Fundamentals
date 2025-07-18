@@ -17,6 +17,8 @@ const HouseRow = ({ house, selectHouse }: { house: House; selectHouse: (house: H
     selectHouse(house);
   };
 
+  throw new Error("This is a test error"); // Intentionally throw an error to test error boundaries
+
   return (
     <tr onClick={handleClick} style={{ backgroundColor: currentColor }}>
       <td>{house.address}</td>

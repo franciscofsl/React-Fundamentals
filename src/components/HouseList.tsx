@@ -4,6 +4,7 @@ import House from "@/types/House";
 import loadingStatus from "@/helpers/loadingStatus";
 import useHouses from "../hooks/useHouses";
 import LoadingIndicator from "./loadingIndicator";
+import ErrorBoundary from "./ErrorBoundary";
 
 /*
 const fetchHouses = fetch("/src/data/houses.json")
@@ -32,7 +33,7 @@ const HouseList = ({
     const total = houses.reduce((sum, house) => sum + house.price, 0);
     return Math.round(total / houses.length);
   }, [houses]); // Recalculated only when the houses array changes
- 
+
   if (loadingState !== loadingStatus.loaded) {
     return <LoadingIndicator loadingState={loadingState} />;
   }
@@ -72,10 +73,13 @@ const HouseList = ({
           </tr>
         </thead>
         <tbody>
-          {houses.map((h) => (
-            // Using the key prop to help React identify which items have changed, are added, or are removed
-            <HouseRow key={h.id} house={h} selectHouse={selectHouse} />
-          ))}
+          <ErrorBoundary>
+            {/* Using ErrorBoundary to catch errors in HouseRow */}
+            {houses.map((h) => (
+              // Using the key prop to help React identify which items have changed, are added, or are removed
+              <HouseRow key={h.id} house={h} selectHouse={selectHouse} />
+            ))}
+          </ErrorBoundary>
         </tbody>
       </table>
       <div className="paginator">Total Houses: {counter}</div>
