@@ -4,9 +4,7 @@ import currencyFormatter from "@/helpers/CurrencyFormatter";
 import House from "@/types/House";
 
 const HouseRow = ({ house }: { house: House }) => {
-
   const [currentColor, setCurrentColor] = useState("");
-
   const [clickCount, setClickCount] = useState(0);
 
   const increment = () => {
@@ -18,7 +16,11 @@ const HouseRow = ({ house }: { house: House }) => {
     <tr onClick={increment} style={{ backgroundColor: currentColor }}>
       <td>{house.address}</td>
       <td>{house.country}</td>
-      <td>{currencyFormatter.format(house.price)}</td>
+      {house.price && (
+        <td className={house.price < 500000 ? "text-primary" : "text-danger"}>
+          {currencyFormatter.format(house.price)}
+        </td>
+      )}
       <td>{clickCount}</td>
     </tr>
   );
@@ -27,4 +29,4 @@ const HouseRow = ({ house }: { house: House }) => {
 const HouseRowMem = React.memo(HouseRow);
 
 export default HouseRow;
-export { HouseRowMem};
+export { HouseRowMem };
