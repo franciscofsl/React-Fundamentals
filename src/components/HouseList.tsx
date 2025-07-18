@@ -1,7 +1,9 @@
 import { useState, useMemo, useRef } from "react";
 import HouseRow from "@/components/HouseRow";
 import House from "@/types/House";
+import loadingStatus from "@/helpers/loadingStatus";
 import useHouses from "../hooks/useHouses";
+import LoadingIndicator from "./loadingIndicator";
 
 /*
 const fetchHouses = fetch("/src/data/houses.json")
@@ -16,12 +18,12 @@ const HouseList = ({
   selectHouse: (house: House) => void;
 }) => {
   // const housesResult = use(fetchHouses);
-  const {houses, setHouses} = useHouses(); // Custom hook to fetch houses
- 
+
+  const { houses, setHouses, loadingState } = useHouses(); // Custom hook to fetch houses
+
   const [counter, setCounter] = useState(0);
   const refCounter = useRef(0);
 
-  
   // Example with useMemo: Memoize average price (expensive calculation)
   const averagePrice = useMemo(() => {
     console.log("Calculating average price..."); // To see when it executes
@@ -30,6 +32,10 @@ const HouseList = ({
     const total = houses.reduce((sum, house) => sum + house.price, 0);
     return Math.round(total / houses.length);
   }, [houses]); // Recalculated only when the houses array changes
+ 
+  if (loadingState !== loadingStatus.loaded) {
+    return <LoadingIndicator loadingState={loadingState} />;
+  }
 
   const AddHouse = () => {
     setHouses([...houses, House.Random(houses.length + 1)]);
