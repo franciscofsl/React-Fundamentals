@@ -5,12 +5,16 @@ class House {
   address: string;
   country: string;
   price: number;
+  photo: string;
+  description: string;
 
-  constructor(id: number, address: string, country: string, price: number) {
+  constructor(id: number, address: string, country: string, price: number, photo: string = "", description: string = "") {
     this.id = id;
     this.address = address;
     this.country = country;
     this.price = price;
+    this.photo = photo;
+    this.description = description;
   }
 
   static Random(id: number): House {
