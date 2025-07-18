@@ -3,10 +3,15 @@ import "./App.css";
 import HouseList from "@/components/HouseList";
 import { Suspense } from "react";
 import { useState } from "react";
-import HouseDetail from "./components/HouseDetail";
+import HouseDetail from "./components/HouseDetail"; 
+import type House from "./types/House";
 
 function App() {
-  const [selectedHouse, setSelectedHouse] = useState();
+  const [selectedHouse, setSelectedHouse] = useState<House>();
+
+  const setSelectedHouseWrapper = (house : House) => {
+    setSelectedHouse(house);
+  }
 
   return (
     <>
@@ -21,7 +26,7 @@ function App() {
       }
       {selectedHouse
        ? <HouseDetail house={selectedHouse} /> 
-       : <HouseList selectHouse={setSelectedHouse} />}
+       : <HouseList selectHouse={setSelectedHouseWrapper} />}
     </>
   );
 }
