@@ -19,7 +19,9 @@ function App() {
           <HouseList />
         </Suspense>*/
       }
-      {selectedHouse ? <HouseDetail house={selectedHouse} /> : <HouseList />}
+      {selectedHouse
+       ? <HouseDetail house={selectedHouse} /> 
+       : <HouseList selectHouse={setSelectedHouse} />}
     </>
   );
 }

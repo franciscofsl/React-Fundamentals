@@ -3,7 +3,7 @@ import Color from "@/types/Color";
 import currencyFormatter from "@/helpers/CurrencyFormatter";
 import House from "@/types/House";
 
-const HouseRow = ({ house }: { house: House }) => {
+const HouseRow = ({ house, selectHouse }: { house: House; selectHouse: (house: House) => void }) => {
   const [currentColor, setCurrentColor] = useState("");
   const [clickCount, setClickCount] = useState(0);
 
@@ -12,8 +12,13 @@ const HouseRow = ({ house }: { house: House }) => {
     setCurrentColor(Color.Random());
   };
 
+  const handleClick = () => {
+    increment();
+    selectHouse(house);
+  };
+
   return (
-    <tr onClick={increment} style={{ backgroundColor: currentColor }}>
+    <tr onClick={handleClick} style={{ backgroundColor: currentColor }}>
       <td>{house.address}</td>
       <td>{house.country}</td>
       {house.price && (

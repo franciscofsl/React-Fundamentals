@@ -16,7 +16,11 @@ const fetchHouses = fetch("/src/data/houses.json")
     data.map((h) => new House(h.id, h.address, h.country, h.price))
   );*/
 
-const HouseList = () => {
+const HouseList = ({
+  selectHouse,
+}: {
+  selectHouse: (house: House) => void;
+}) => {
   // const housesResult = use(fetchHouses);
 
   const [houses, setHouses] = useState<House[]>([]);
@@ -63,17 +67,17 @@ const HouseList = () => {
           Houses currently on the market
         </h5>
       </div>
-      
+
       {/* Show memoized average price */}
       <div className="alert alert-info mb-3">
         <strong>Average Price:</strong> ${averagePrice.toLocaleString()}
       </div>
-      
+
       <button className="btn btn-primary" onClick={AddHouse}>
         Add
       </button>
       <a>Called {refCounter.current} times (2 times by StrictMode applied)</a>
-     
+
       <table className="table table-hover">
         <thead>
           <tr>
@@ -86,7 +90,7 @@ const HouseList = () => {
         <tbody>
           {houses.map((h) => (
             // Using the key prop to help React identify which items have changed, are added, or are removed
-            <HouseRow key={h.id} house={h} />
+            <HouseRow key={h.id} house={h} selectHouse={selectHouse} />
           ))}
         </tbody>
       </table>
