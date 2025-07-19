@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Color from "@/types/Color";
 import currencyFormatter from "@/helpers/CurrencyFormatter";
-import House from "@/types/House";
-import navigationContext from "../navigation/navigationContext"; 
-import navValues from "../navigation/navValues";
+import House from "@/types/House"; 
+import { useNavigate } from "react-router";
 
 const HouseRow = ({ house }: { house: House; }) => {
   const [currentColor, setCurrentColor] = useState("");
   const [clickCount, setClickCount] = useState(0);
-  const {navigate} = useContext(navigationContext);
+  const navigate = useNavigate();
 
   const increment = () => {
     setClickCount(clickCount + 1);
@@ -17,7 +16,7 @@ const HouseRow = ({ house }: { house: House; }) => {
 
   const handleClick = () => {
     increment();
-    navigate(navValues.house, house);
+    navigate(`/house/${house.id}`);
   };
 
   // If the exception is thrown, the error will be caught by an Error Boundary

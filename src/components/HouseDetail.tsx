@@ -1,10 +1,11 @@
 import currencyFormatter from "@/helpers/CurrencyFormatter";
-import defaultPhoto from "@/helpers/DefaultImage"; 
-import { useContext } from "react";
-import navigationContext from "../navigation/navigationContext";
+import defaultPhoto from "@/helpers/DefaultImage";
+import { useParams } from "react-router";
 
 const HouseDetail = () => {
- const {param: house} = useContext(navigationContext)
+  const { id } = useParams();
+  // outside the course fetch the house by id
+
   return (
     <div className="row">
       <div className="col-6">
