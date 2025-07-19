@@ -13,11 +13,7 @@ const fetchHouses = fetch("/src/data/houses.json")
     data.map((h) => new House(h.id, h.address, h.country, h.price))
   );*/
 
-const HouseList = ({
-  selectHouse,
-}: {
-  selectHouse: (house: House) => void;
-}) => {
+const HouseList = () => {
   // const housesResult = use(fetchHouses);
 
   const { houses, setHouses, loadingState } = useHouses(); // Custom hook to fetch houses
@@ -77,7 +73,7 @@ const HouseList = ({
             {/* Using ErrorBoundary to catch errors in HouseRow */}
             {houses.map((h) => (
               // Using the key prop to help React identify which items have changed, are added, or are removed
-              <HouseRow key={h.id} house={h} selectHouse={selectHouse} />
+              <HouseRow key={h.id} house={h} />
             ))}
           </ErrorBoundary>
         </tbody>

@@ -1,19 +1,24 @@
-import logo from '@/assets/logo.png';
-import styles from './banner.module.css';
-import type { PropsWithChildren } from 'react';
+import logo from "@/assets/logo.png";
+import styles from "./banner.module.css";
+import { useContext, type PropsWithChildren } from "react";
+import navValues from "../navigation/navValues";
+import navigationContext from "../navigation/navigationContext";
 
 const subtitleStyle = {
-  fontStyle : "italic",
-  fontSize : "x-large",
-  color: "coral"
-}
-const Banner = ({children} : PropsWithChildren) => {
+  fontStyle: "italic",
+  fontSize: "x-large",
+  color: "coral",
+};
+const Banner = ({ children }: PropsWithChildren) => {
+  const { navigate } = useContext(navigationContext);
   return (
     <header className="row mb-4">
       <div className="col-5">
-        <img src={logo} className={styles.logo} alt="Logo"></img>
+        <img src={logo} className={styles.logo} alt="Logo" onClick={() => navigate(navValues.home)}></img>
       </div>
-      <div className="col-7 col-5" style={subtitleStyle}>{children}</div>
+      <div className="col-7 col-5" style={subtitleStyle}>
+        {children}
+      </div>
     </header>
   );
 };
@@ -26,6 +31,7 @@ In javascript, we can use propTypes to validate the props passed to a component.
 by default typescript already gives types, these are used.
 
 import propTypes from 'prop-types';
+import { useContext } from 'react';
 
 Banner.propTypes = {
   headerText: propTypes.string.isRequired

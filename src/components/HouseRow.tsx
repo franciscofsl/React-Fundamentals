@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Color from "@/types/Color";
 import currencyFormatter from "@/helpers/CurrencyFormatter";
 import House from "@/types/House";
+import navigationContext from "../navigation/navigationContext"; 
+import navValues from "../navigation/navValues";
 
-const HouseRow = ({ house, selectHouse }: { house: House; selectHouse: (house: House) => void }) => {
+const HouseRow = ({ house }: { house: House; }) => {
   const [currentColor, setCurrentColor] = useState("");
   const [clickCount, setClickCount] = useState(0);
+  const {navigate} = useContext(navigationContext);
 
   const increment = () => {
     setClickCount(clickCount + 1);
@@ -14,10 +17,11 @@ const HouseRow = ({ house, selectHouse }: { house: House; selectHouse: (house: H
 
   const handleClick = () => {
     increment();
-    selectHouse(house);
+    navigate(navValues.house, house);
   };
 
-  throw new Error("This is a test error"); // Intentionally throw an error to test error boundaries
+  // If the exception is thrown, the error will be caught by an Error Boundary
+  //  throw new Error("This is a test error"); // Intentionally throw an error to test error boundaries
 
   return (
     <tr onClick={handleClick} style={{ backgroundColor: currentColor }}>
