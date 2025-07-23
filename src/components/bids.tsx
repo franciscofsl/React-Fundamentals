@@ -29,9 +29,7 @@ const Bids = ({ house }: BidsProps) => {
     const bidder = formData.get("bidder") as string;
     const amount = formData.get("amount") as string;
     
-    try {
-      // Simulate delay
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+    try { 
 
       const bid: Bid = {
         houseId: house.id,
@@ -40,6 +38,8 @@ const Bids = ({ house }: BidsProps) => {
       };
 
       await addBid(bid);
+      
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       setNewBid(emptyBid);
       
       return { success: true, message: "Bid added successfully!" };
@@ -80,7 +80,7 @@ const Bids = ({ house }: BidsProps) => {
         </div>
       </div>
       
-      {/* Show status message */}
+      {/* Mostrar mensaje de estado */}
       {state.message && (
         <div className={`alert ${state.success ? 'alert-success' : 'alert-danger'}`}>
           {state.message}

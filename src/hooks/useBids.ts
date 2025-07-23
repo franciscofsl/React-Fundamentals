@@ -1,10 +1,11 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useOptimistic } from "react";
 import loadingStatus from "../helpers/loadingStatus";
 import type { Bid } from "../types/Bid";
 
 const useBids = (houseId: number) => {
   const [bids, setBids] = useState<Bid[]>([]);
   const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
+  const [optimisticBids, addOptimisticBids] = useOptimistic(bids, (bids, newbid) => [...bids, newbid]);
 
   // Función para obtener bids del localStorage
   const getBidsFromStorage = useCallback((houseId: number): Bid[] => {
@@ -81,12 +82,13 @@ const useBids = (houseId: number) => {
       timestamp: new Date().toISOString()
     };
     
+    addOptimisticBids(newBid);
     const updatedBids = [...bids, newBid];
     setBids(updatedBids);
     saveBidsToStorage(houseId, updatedBids);
   }, [bids, houseId, saveBidsToStorage]);
 
-  return { bids, loadingState, addBid };
+  return { bids: optimisticBids, loadingState, addBid };
 };
 
 export default useBids;
