@@ -25,14 +25,23 @@ const Bids = ({ house }: BidsProps) => {
   if (loadingState !== loadingStatus.loaded)
     return <LoadingIndicator loadingState={loadingState} />;
 
-  const onBidSubmitClick = () => {
-    if (newBid.bidder.trim() && newBid.amount > 0) {
+  const onBidSubmitClick = (formData) => {
+    const bidder = formData.get("bidder");
+    const amount = formData.get("amount");
+    
       startTransition(async () => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        addBid(newBid);
+
+        const bid: Bid = {
+          houseId: house.id,
+          bidder,
+          amount: parseFloat(amount),
+        };
+
+        addBid(bid);
       });
       setNewBid(emptyBid);
-    }
+    
   };
 
   return (
@@ -57,10 +66,11 @@ const Bids = ({ house }: BidsProps) => {
           </table>
         </div>
       </div>
-      <div className="row">
+      <form action={onBidSubmitClick} className="row row-cols-lg">
         <div className="col-5">
           <input
             id="bidder"
+            name="bidder"
             className="h-100"
             type="text"
             value={newBid.bidder}
@@ -71,6 +81,7 @@ const Bids = ({ house }: BidsProps) => {
         <div className="col-5">
           <input
             id="amount"
+            name="amount"
             className="h-100"
             type="number"
             value={newBid.amount}
@@ -83,13 +94,13 @@ const Bids = ({ house }: BidsProps) => {
         <div className="col-2">
           <button
             className="btn btn-primary"
-            onClick={onBidSubmitClick}
+            type="submit"
             disabled={isPending}
           >
             Add
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };
