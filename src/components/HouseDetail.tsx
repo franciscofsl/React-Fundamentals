@@ -1,21 +1,25 @@
 import currencyFormatter from "@/helpers/CurrencyFormatter";
 import defaultPhoto from "@/helpers/DefaultImage";
-import { useParams } from "react-router";
-import Bids from "./bids";
+import { useParams } from "react-router"; 
 import useHouses from "../hooks/useHouses";
 import loadingStatus from "@/helpers/loadingStatus";
 import LoadingIndicator from "./loadingIndicator";
 import type House from "@/types/House";
+import BidsList from "./BidsList";
+import AddBid from "./AddBid";
+import useBids from "../hooks/useBids";
 
 const HouseDetail = () => {
   const { id } = useParams();
   const { houses, loadingState } = useHouses();
-  
+  const house: House | undefined = houses.find((h: House) => h.id === parseInt(id || "0"));
+
+  const {bids, loadingStateBid, addBid} = useBids(house?.id);
+
   if (loadingState !== loadingStatus.loaded) {
     return <LoadingIndicator loadingState={loadingState} />;
   }
   
-  const house: House | undefined = houses.find((h: House) => h.id === parseInt(id || "0"));
   
   if (!house) {
     return <div>House not found</div>;
@@ -49,7 +53,8 @@ const HouseDetail = () => {
         <div className="row">
           <div className="col-12 mt-3">{house.description}</div>
         </div>
-        <Bids house={house} />
+        <BidsList bids={bids} />
+        <AddBid house={house} addBid={addBid} />
       </div>
     </div>
   );
