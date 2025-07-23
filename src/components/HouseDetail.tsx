@@ -1,6 +1,7 @@
 import currencyFormatter from "@/helpers/CurrencyFormatter";
 import defaultPhoto from "@/helpers/DefaultImage";
 import { useParams } from "react-router";
+import Bids from "./bids";
 
 const HouseDetail = () => {
   const { id } = useParams();
@@ -34,6 +35,7 @@ const HouseDetail = () => {
         <div className="row">
           <div className="col-12 mt-3">{house.description}</div>
         </div>
+        <Bids house={house} />
       </div>
     </div>
   );
