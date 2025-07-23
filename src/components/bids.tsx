@@ -3,24 +3,32 @@ import loadingStatus from "../helpers/loadingStatus";
 import useBids from "../hooks/useBids";
 import LoadingIndicator from "./loadingIndicator";
 import currencyFormatter from "@/helpers/CurrencyFormatter";
+import type { Bid } from "../types/Bid";
+import type House from "../types/House";
 
-const Bids = ({ house }) => {
+interface BidsProps {
+  house: House;
+}
+
+const Bids = ({ house }: BidsProps) => {
   const { bids, loadingState, addBid } = useBids(house.id);
 
-  const emptyBid = {
+  const emptyBid: Bid = {
     houseId: house.id,
     bidder: "",
     amount: 0,
   };
 
-  const [newBid, setNewBid] = useState(emptyBid);
+  const [newBid, setNewBid] = useState<Bid>(emptyBid);
 
   if (loadingState !== loadingStatus.loaded)
     return <LoadingIndicator loadingState={loadingState} />;
 
   const onBidSubmitClick = () => {
-    addBid(newBid);
-    setNewBid(emptyBid);
+    if (newBid.bidder.trim() && newBid.amount > 0) {
+      addBid(newBid);
+      setNewBid(emptyBid);
+    }
   };
 
   return (
@@ -63,7 +71,7 @@ const Bids = ({ house }) => {
             type="number"
             value={newBid.amount}
             onChange={(e) =>
-              setNewBid({ ...newBid, amount: parseInt(e.target.value) })
+              setNewBid({ ...newBid, amount: parseInt(e.target.value) || 0 })
             }
             placeholder="Amount"
           ></input>

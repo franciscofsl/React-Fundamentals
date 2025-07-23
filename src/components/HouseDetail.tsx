@@ -2,10 +2,24 @@ import currencyFormatter from "@/helpers/CurrencyFormatter";
 import defaultPhoto from "@/helpers/DefaultImage";
 import { useParams } from "react-router";
 import Bids from "./bids";
+import useHouses from "../hooks/useHouses";
+import loadingStatus from "@/helpers/loadingStatus";
+import LoadingIndicator from "./loadingIndicator";
+import type House from "@/types/House";
 
 const HouseDetail = () => {
   const { id } = useParams();
-  // outside the course fetch the house by id
+  const { houses, loadingState } = useHouses();
+  
+  if (loadingState !== loadingStatus.loaded) {
+    return <LoadingIndicator loadingState={loadingState} />;
+  }
+  
+  const house: House | undefined = houses.find((h: House) => h.id === parseInt(id || "0"));
+  
+  if (!house) {
+    return <div>House not found</div>;
+  }
 
   return (
     <div className="row">
